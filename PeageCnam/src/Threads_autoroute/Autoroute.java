@@ -3,6 +3,8 @@ import java.util.HashSet;
 import java.util.Timer;
 import java.util.concurrent.CountDownLatch;
 
+import javax.swing.JFrame;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -23,6 +25,7 @@ public class Autoroute {
 	}
 
 	public static void main(String[] args) {
+		Fenetre f = new Fenetre();
 		Autoroute auto = Autoroute.getInstance();
 		auto.simuler();
 	}
@@ -36,11 +39,11 @@ public class Autoroute {
 		// Lancer le timer
 		Timer t = new Timer(true); // timer deamon
 		t.schedule(obs, 1000, 1000);
-		// CrÃ©er le controleur qui terminera le timer
+		// Créer le controleur qui terminera le timer
 		Controleur controleur = new Controleur(f.getNb_voitures(), t);
 		controleur.start();
 
-		// crÃ©ation de la barriere de départ
+		// création de la barriere de départ
 		CountDownLatch barriere = new CountDownLatch(f.getNb_voitures());
 		for (int i = 0; i < f.getNb_voitures(); i++) {
 			Voiture v = new Voiture(i, f.getVitesse(), gare, obs, f.getKm_min(), f.getKm_max(), barriere, controleur);
